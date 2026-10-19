@@ -1,0 +1,24 @@
+# Entorno virtual
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# VS Code
+.vscode/
+
+# Archivos temporales
+*.tmp
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Evidencias del reporte
+evidencias/
+
+# Variables y secretos
+.env
+*.env
