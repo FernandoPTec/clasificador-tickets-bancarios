@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import datetime
 
 import joblib
 from fastapi import FastAPI, HTTPException
@@ -101,12 +102,30 @@ def predecir_ticket(ticket: TicketEntrada):
     # Obtener prioridad
     prioridad = obtener_prioridad(texto, categoria)
 
+    
     # Obtener área responsable
-    area = areas.get(categoria, "Revisión manual")
+area = areas.get(categoria, "Revisión manual")
 
-    return {
-        "ticket": texto,
-        "categoria": categoria,
-        "prioridad": prioridad,
-        "area": area
-    }
+
+# Auditoría de predicciones
+with open(
+    BASE_DIR / "logs" / "predicciones.log",
+    "a",
+    encoding="utf-8"
+) as log:
+
+    log.write(
+        f"{datetime.now()} | "
+        f"{texto} | "
+        f"{categoria} | "
+        f"{prioridad} | "
+        f"{area}\n"
+    )
+
+
+return {
+    "ticket": texto,
+    "categoria": categoria,
+    "prioridad": prioridad,
+    "area": area
+}
